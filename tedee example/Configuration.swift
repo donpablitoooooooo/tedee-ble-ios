@@ -2,80 +2,37 @@
 //  Configuration.swift
 //  tedee example
 //
-//  Created by Mateusz Samosij on 20/12/2022.
+//  Created by Mateusz Samosij on 28/02/2024.
 //
 
 import Foundation
-import CoreBluetooth
 
 enum Configuration {
-    static let SerialNumber = ""
-    static let CertificateString = ""
-    static let DevicePublicKeyString = ""
-    static let MobilePublicKeyString = ""
+    static let serialNumber = "22290402-120901"
+    static let certificate = "AQEEAgECAwRl4aUqBAF/BQQAAAAABgQAAVF/BwRl3neACARnwPyACQQAACOqCgQAALXlCwgAAAGNqX27NH5BBAx3Ut+2bz4dJLqWLJIqTXqW2NuC5Wq9JRcOclVHDXqhNqNYpFqqf5JLP3ZiCLbUL7LvMCzc6E7g20D8RhYsB/p/RzBFAiEA89Hx9Q3/ae0La7zoCKSp9/Yk+FkErD5q7AVszDkp+3wCIDGpU0sZIGCTrY6d8hAthb16wWSSFByWEzFZq50xH1mT"
+    static let expiration = "2024-03-01T09:51:38.370937Z"
+    static let devicePublicKey = "BDEagkFL2rYF28ftDhUPW6yxOysss4Yd/naSdZisc6LEoniR/yiGnOs9SH/pie1m9saUO3NQIenzjRlsOrWKFCQ="
+    static let mobilePublicKey = "BAx3Ut+2bz4dJLqWLJIqTXqW2NuC5Wq9JRcOclVHDXqhNqNYpFqqf5JLP3ZiCLbUL7LvMCzc6E7g20D8RhYsB/o="
 }
 
 extension Configuration {
-    static var deviceService: CBUUID = {
-        guard !SerialNumber.isEmpty else {
-            print("ERROR: Serial number is missing! Update `SerialNumber` with valid lock serial number!");
-            exit(1)
+    static var expirationDate: Date = {
+        guard let expirationDate = Date.date(from: "2024-03-01T09:51:38.370937Z",
+                                             format: "yyyy-MM-dd'T'HH:mm:ss.SSSSSSS'Z'", isUTC: true) else {
+            fatalError("Invalid expiration date format")
         }
         
-        let serialNumber = SerialNumber.replacingOccurrences(of: "-", with: "")
-        return CBUUID(string: serialNumber.serviceString())
-    }()
-    
-    static var DevicePublicKey: SecKey = {
-        guard !DevicePublicKeyString.isEmpty else {
-            print("ERROR: Mobile public key is missing! Update `DevicePublicKeyString` with one from Tedee API!")
-            exit(1)
-        }
-        
-        var error: Unmanaged<CFError>?
-        guard let publicKeyData = Data(base64Encoded: Self.DevicePublicKeyString),
-              let publicKey = SecKeyCreateWithData(publicKeyData as CFData, SecKey.devicePublicKeyAttributes as CFDictionary, &error) else {
-            fatalError(error.debugDescription)
-        }
-        
-        return publicKey
-    }()
-    
-    static var MobilePublicKey: SecKey = {
-        guard !MobilePublicKeyString.isEmpty else {
-            print("ERROR: Device public key is missing! Update `MobilePublicKeyString` with one from console!")
-            exit(1)
-        }
-        
-        var error: Unmanaged<CFError>?
-        guard let publicKeyData = Data(base64Encoded: Self.MobilePublicKeyString),
-              let publicKey = SecKeyCreateWithData(publicKeyData as CFData, SecKey.devicePublicKeyAttributes as CFDictionary, &error) else {
-            fatalError(error.debugDescription)
-        }
-        
-        return publicKey
+        return expirationDate
     }()
 }
 
-extension String {
-    func insert(string: String, ind: Int) -> String {
-        return String(prefix(ind)) + string + String(suffix(count - ind))
-    }
+extension Date {
+    static var dF = DateFormatter()
     
-    func serviceString() -> String {
-        let serviceString = "\(self)".insert(string: "0000", ind: 4) + String(repeating: "0", count: 14)
-        return serviceString.insert(string: "-", ind: 20).insert(string: "-", ind: 16).insert(string: "-", ind: 12).insert(string: "-", ind: 8).uppercased()
-    }
-}
-
-extension SecKey {
-    static var devicePublicKeyAttributes: CFDictionary {
-        let attributes: [String: Any] = [
-            kSecAttrType as String: kSecAttrKeyTypeECSECPrimeRandom,
-            kSecAttrKeySizeInBits as String: 256,
-            kSecAttrKeyClass as String: kSecAttrKeyClassPublic
-        ]
-        
-        return attributes as CFDictionary
+    static func date(from string: String, format: String = "yyyy-MM-dd'T'HH:mm:ss", isUTC: Bool = false, locale: Locale? = nil) -> Date? {
+        dF.dateFormat = format
+        dF.locale = locale ?? Locale(identifier: "en_US_POSIX")
+        dF.timeZone = isUTC ? TimeZone(abbreviation: "UTC") : Calendar.current.timeZone
+        return dF.date(from: string)
     }
 }

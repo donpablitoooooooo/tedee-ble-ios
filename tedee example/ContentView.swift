@@ -2,44 +2,112 @@
 //  ContentView.swift
 //  tedee example
 //
-//  Created by Mateusz Samosij on 20/12/2022.
+//  Created by Mateusz Samosij on 21/02/2024.
 //
 
 import SwiftUI
-import CoreBluetooth
+import TedeeLock
 
 struct ContentView: View {
-    let centralManager: CBCentralManager?
-    @ObservedObject var centralManagerDelegate: CentralManagerDelegate
-    
-    init(centralManagerDelegate: CentralManagerDelegate = CentralManagerDelegate()) {
-        self.centralManagerDelegate = centralManagerDelegate
-        centralManager = CBCentralManager(delegate: centralManagerDelegate, queue: .main)
-    }
+    @Bindable var viewModel: ContentViewModel
+    @State var isConnected = false
+    @State var command = ""
+    @State var parameters = ""
+    @FocusState var commandFocus: Bool
+    @FocusState var parametersFocus: Bool
     
     var body: some View {
-        VStack {
-            Text(centralManagerDelegate.peripheralState)
-            Button {
-                let encryptedMessage = try? centralManagerDelegate.connectedPeripheralDelegate.session?.encrypt(message: [0x51])
-                guard let peripheral = centralManagerDelegate.connectedPeripheral,
-                      let message = encryptedMessage,
-                      let characteristic = peripheral.service?.apiCharacteristic else {
-                    return
+        Form {
+            Section {
+                HStack {
+                    Spacer()
+                    Text(viewModel.serialNumber.serialNumber)
+                        .font(.largeTitle)
+                        .lineLimit(1)
+                        .scaledToFill()
+                    Spacer()
                 }
-                peripheral.writeValue(Data([0x1] + message), for: characteristic, type: .withResponse)
-            } label: {
-                Text("Unlock")
+                
+                HStack {
+                    Spacer()
+                    Text(viewModel.isConnected ? "Connected" : "Disconnected")
+                        .foregroundStyle(viewModel.isConnected ? .green : .red)
+                        .font(.title)
+                    Spacer()
+                }
             }
-            .padding(.top, 20)
-            .disabled(centralManagerDelegate.peripheralState != "Device ready")
+            
+            
+            Section {
+                Toggle("Keep connection?", isOn: $viewModel.keepConnection)
+                HStack {
+                    Button {
+                        Task {
+                            await viewModel.connect()
+                        }
+                    } label: {
+                        Text("Connect")
+                    }
+                    .buttonStyle(.bordered)
+                    Spacer()
+                    Button {
+                        Task {
+                            await viewModel.disconnect()
+                        }
+                    } label : {
+                        Text("Disconnect")
+                            .foregroundStyle(.red)
+                    }
+                    .buttonStyle(.bordered)
+                }
+            }
+            
+            Section {
+                VStack(alignment: .leading) {
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("Command")
+                            TextField("0x00", text: $command)
+                                .textFieldStyle(.roundedBorder)
+                                .autocorrectionDisabled()
+                                .textInputAutocapitalization(.never)
+                                .focused($commandFocus)
+                        }
+                        
+                        VStack(alignment: .leading) {
+                            Text("Parameters")
+                            TextField("0x00, 0x00, 0x00", text: $parameters)
+                                .textFieldStyle(.roundedBorder)
+                                .autocorrectionDisabled()
+                                .textInputAutocapitalization(.never)
+                                .focused($parametersFocus)
+                        }
+                    }
+                    Button {
+                        commandFocus = false
+                        parametersFocus = false
+                        Task {
+                            await viewModel.sendCommand(command, parameters: parameters)
+                        }
+                    } label: {
+                        Text("Send command")
+                    }.buttonStyle(.bordered)
+                }
+            }
+            
+            Section {
+                ForEach(viewModel.comunicationList.reversed()) { item in
+                    Text(item.text)
+                }
+            }
         }
-        .padding()
+        .onAppear {
+            print("Public key: \(TedeeLockManager.publicKey)")
+            viewModel.configureStreams()
+        }
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+#Preview {
+    ContentView(viewModel: ContentViewModel())
 }

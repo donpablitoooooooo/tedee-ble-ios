@@ -8,13 +8,17 @@
 import SwiftUI
 import TedeeLock
 
+enum FocusableField: Hashable {
+    case command
+    case parameters
+}
+
 struct ContentView: View {
     @Bindable var viewModel: ContentViewModel
     @State var isConnected = false
     @State var command = ""
     @State var parameters = ""
-    @FocusState var commandFocus: Bool
-    @FocusState var parametersFocus: Bool
+    @FocusState var focus: FocusableField?
     
     var body: some View {
         Form {
@@ -71,7 +75,7 @@ struct ContentView: View {
                                 .textFieldStyle(.roundedBorder)
                                 .autocorrectionDisabled()
                                 .textInputAutocapitalization(.never)
-                                .focused($commandFocus)
+                                .focused($focus, equals: .command)
                         }
                         
                         VStack(alignment: .leading) {
@@ -80,12 +84,11 @@ struct ContentView: View {
                                 .textFieldStyle(.roundedBorder)
                                 .autocorrectionDisabled()
                                 .textInputAutocapitalization(.never)
-                                .focused($parametersFocus)
+                                .focused($focus, equals: .parameters)
                         }
                     }
                     Button {
-                        commandFocus = false
-                        parametersFocus = false
+                        focus = nil
                         Task {
                             await viewModel.sendCommand(command, parameters: parameters)
                         }
@@ -102,7 +105,7 @@ struct ContentView: View {
             }
         }
         .onAppear {
-            print("Public key: \(TedeeLockManager.publicKey)")
+            print("Public key to register in api:: \(TedeeLockManager.publicKey)")
             viewModel.configureStreams()
         }
     }

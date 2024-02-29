@@ -3,19 +3,17 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D3860C8B2B9096D40002086F /* TedeeMobileSDK in Frameworks */ = {isa = PBXBuildFile; productRef = D3860C8A2B9096D40002086F /* TedeeMobileSDK */; };
 		D3B3746F2B8F5E1B00EDA7A5 /* tedee_exampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B374682B8F5E1B00EDA7A5 /* tedee_exampleApp.swift */; };
 		D3B374702B8F5E1B00EDA7A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3B374692B8F5E1B00EDA7A5 /* Assets.xcassets */; };
 		D3B374712B8F5E1B00EDA7A5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3B3746B2B8F5E1B00EDA7A5 /* Preview Assets.xcassets */; };
 		D3B374722B8F5E1B00EDA7A5 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B3746C2B8F5E1B00EDA7A5 /* ContentViewModel.swift */; };
 		D3B374732B8F5E1B00EDA7A5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B3746D2B8F5E1B00EDA7A5 /* ContentView.swift */; };
-		D3B374772B8F5F1500EDA7A5 /* TedeeLock in Frameworks */ = {isa = PBXBuildFile; productRef = D3B374762B8F5F1500EDA7A5 /* TedeeLock */; };
 		D3B374942B8F700A00EDA7A5 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B374932B8F700A00EDA7A5 /* Configuration.swift */; };
-		D3B374962B8F768300EDA7A5 /* TedeeLock in Frameworks */ = {isa = PBXBuildFile; productRef = D3BDD1112B88BEDF0099BF21 /* TedeeLock */; };
-		D3BDD1132B88BEDF0099BF21 /* TedeeLock in Embed Frameworks */ = {isa = PBXBuildFile; productRef = D3BDD1112B88BEDF0099BF21 /* TedeeLock */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,7 +23,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D3BDD1132B88BEDF0099BF21 /* TedeeLock in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -33,13 +30,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D313E1CF2B8FB6EB0084DCA2 /* tedee example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tedee example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3B374682B8F5E1B00EDA7A5 /* tedee_exampleApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tedee_exampleApp.swift; sourceTree = "<group>"; };
 		D3B374692B8F5E1B00EDA7A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D3B3746B2B8F5E1B00EDA7A5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D3B3746C2B8F5E1B00EDA7A5 /* ContentViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		D3B3746D2B8F5E1B00EDA7A5 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D3B374932B8F700A00EDA7A5 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
-		D3B374952B8F764900EDA7A5 /* tedee example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "tedee example.app"; path = "/Users/mateuszsamosij/Projects/Tedee/tedee-example-ble-ios/build/Debug-iphoneos/tedee example.app"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,18 +44,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3B374962B8F768300EDA7A5 /* TedeeLock in Frameworks */,
-				D3B374772B8F5F1500EDA7A5 /* TedeeLock in Frameworks */,
+				D3860C8B2B9096D40002086F /* TedeeMobileSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D313E1D32B908E170084DCA2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D354BB7E2B861FF5003AF9E3 = {
 			isa = PBXGroup;
 			children = (
 				D3B374672B8F5E1B00EDA7A5 /* tedee example */,
+				D313E1CF2B8FB6EB0084DCA2 /* tedee example.app */,
+				D313E1D32B908E170084DCA2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,11 +106,10 @@
 			);
 			name = "tedee example";
 			packageProductDependencies = (
-				D3BDD1112B88BEDF0099BF21 /* TedeeLock */,
-				D3B374762B8F5F1500EDA7A5 /* TedeeLock */,
+				D3860C8A2B9096D40002086F /* TedeeMobileSDK */,
 			);
 			productName = TedeeLockTestApp;
-			productReference = D3B374952B8F764900EDA7A5 /* tedee example.app */;
+			productReference = D313E1CF2B8FB6EB0084DCA2 /* tedee example.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -133,7 +137,7 @@
 			);
 			mainGroup = D354BB7E2B861FF5003AF9E3;
 			packageReferences = (
-				D3B374752B8F5F1500EDA7A5 /* XCLocalSwiftPackageReference "../tedee-iOS-lock-sdk/TedeeLock" */,
+				D3860C892B9096D30002086F /* XCRemoteSwiftPackageReference "tedee-mobile-sdk-ios" */,
 			);
 			productRefGroup = D354BB7E2B861FF5003AF9E3;
 			projectDirPath = "";
@@ -373,21 +377,22 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		D3B374752B8F5F1500EDA7A5 /* XCLocalSwiftPackageReference "../tedee-iOS-lock-sdk/TedeeLock" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = "../tedee-iOS-lock-sdk/TedeeLock";
+/* Begin XCRemoteSwiftPackageReference section */
+		D3860C892B9096D30002086F /* XCRemoteSwiftPackageReference "tedee-mobile-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tedee-com/tedee-mobile-sdk-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.2;
+			};
 		};
-/* End XCLocalSwiftPackageReference section */
+/* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D3B374762B8F5F1500EDA7A5 /* TedeeLock */ = {
+		D3860C8A2B9096D40002086F /* TedeeMobileSDK */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = TedeeLock;
-		};
-		D3BDD1112B88BEDF0099BF21 /* TedeeLock */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = TedeeLock;
+			package = D3860C892B9096D30002086F /* XCRemoteSwiftPackageReference "tedee-mobile-sdk-ios" */;
+			productName = TedeeMobileSDK;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

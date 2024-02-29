@@ -32,11 +32,11 @@ final class ContentViewModel {
     
     init() {
         do {
-            serialNumber = try TedeeSerialNumber(serialNumber: Configuration.serialNumber)
-            certificate = try TedeeCertificate(certificate: Configuration.certificate,
+            serialNumber = try TedeeSerialNumber(serialNumber: Configuration.SerialNumber)
+            certificate = try TedeeCertificate(certificate: Configuration.Certificate,
                                                expirationDate: Configuration.expirationDate,
-                                               devicePublicKey: Configuration.devicePublicKey,
-                                               mobilePublicKey: Configuration.mobilePublicKey)
+                                               devicePublicKey: Configuration.DevicePublicKey,
+                                               mobilePublicKey: Configuration.MobilePublicKey)
         } catch {
             fatalError("\(error)")
         }

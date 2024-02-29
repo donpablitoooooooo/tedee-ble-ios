@@ -8,11 +8,11 @@
 import Foundation
 
 enum Configuration {
-    static let serialNumber = "22290402-120901"
-    static let certificate = "AQEEAgECAwRl4aUqBAF/BQQAAAAABgQAAVF/BwRl3neACARnwPyACQQAACOqCgQAALXlCwgAAAGNqX27NH5BBAx3Ut+2bz4dJLqWLJIqTXqW2NuC5Wq9JRcOclVHDXqhNqNYpFqqf5JLP3ZiCLbUL7LvMCzc6E7g20D8RhYsB/p/RzBFAiEA89Hx9Q3/ae0La7zoCKSp9/Yk+FkErD5q7AVszDkp+3wCIDGpU0sZIGCTrY6d8hAthb16wWSSFByWEzFZq50xH1mT"
-    static let expiration = "2024-03-01T09:51:38.370937Z"
-    static let devicePublicKey = "BDEagkFL2rYF28ftDhUPW6yxOysss4Yd/naSdZisc6LEoniR/yiGnOs9SH/pie1m9saUO3NQIenzjRlsOrWKFCQ="
-    static let mobilePublicKey = "BAx3Ut+2bz4dJLqWLJIqTXqW2NuC5Wq9JRcOclVHDXqhNqNYpFqqf5JLP3ZiCLbUL7LvMCzc6E7g20D8RhYsB/o="
+    static let SerialNumber = "22290402-120901"
+    static let Certificate = "AQEEAgECAwRl4aUqBAF/BQQAAAAABgQAAVF/BwRl3neACARnwPyACQQAACOqCgQAALXlCwgAAAGNqX27NH5BBAx3Ut+2bz4dJLqWLJIqTXqW2NuC5Wq9JRcOclVHDXqhNqNYpFqqf5JLP3ZiCLbUL7LvMCzc6E7g20D8RhYsB/p/RzBFAiEA89Hx9Q3/ae0La7zoCKSp9/Yk+FkErD5q7AVszDkp+3wCIDGpU0sZIGCTrY6d8hAthb16wWSSFByWEzFZq50xH1mT"
+    static let Expiration = "2024-03-01T09:51:38.370937Z"
+    static let DevicePublicKey = "BDEagkFL2rYF28ftDhUPW6yxOysss4Yd/naSdZisc6LEoniR/yiGnOs9SH/pie1m9saUO3NQIenzjRlsOrWKFCQ="
+    static let MobilePublicKey = "BAx3Ut+2bz4dJLqWLJIqTXqW2NuC5Wq9JRcOclVHDXqhNqNYpFqqf5JLP3ZiCLbUL7LvMCzc6E7g20D8RhYsB/o="
 }
 
 extension Configuration {

@@ -4,28 +4,22 @@
 
 ## About
 
-This example project was created by [Tedee](https://tedee.com) team to show you how to operate Tedee lock using Bluetooth Low Energy communication protocol.
+This example project was created by [Tedee](https://tedee.com) team to show you how to use [Tedee Mobile SDK for iOS](https://github.com/tedee-com/tedee-mobile-sdk-ios).
 
 This project was created using Swift language and run it on iOS device.
 
-Purpose of this project is to present how you can open bluetooth connection with Tedee Lock, start encrypted session and operate it (currently only the `Unlock` command is implemented).
-
-App uses native iOS Bluetooth stack and custom implementation of secure session. It is not using any Tedee services and works only locally within range of BLE. During preparation steps you will have to get lock certificate manually.
-
-Using this example you will be able to operate only one lock a time.
-
-> :warning: This is just a simplified example of how to connect and send commands to lock. It omits security concerns, error handling, and best practices. This is not production-ready code.
+Using this example you will be able to connect and communicate with only one lock at the time.
 
 ## Requirements
 
 ### Hardware
 1. Tedee Lock - you can order it in our [online store](https://tedee.com/shop/)
-2. iPhone (real device) with iOS 16.2+ and installed [Tedee](https://apps.apple.com/us/app/tedee/id1481874162) app
-3. Mac with `Monterey` or newer macOS installed
+2. iPhone (real device) with iOS 17.2+ and installed [Tedee](https://apps.apple.com/us/app/tedee/id1481874162) app
+3. Mac with `Sonoma` or newer macOS installed
 4. USB - Lightning cable (to connect iPhone to Mac)
 
 ### Software
-1.  Xcode 14.2+ from [App Store](https://apps.apple.com/pl/app/xcode/id497799835?mt=12)
+1.  Xcode 15.2+ from [App Store](https://apps.apple.com/pl/app/xcode/id497799835?mt=12)
 
 ### Other
 1. Tedee account created in Tedee app
@@ -33,7 +27,8 @@ Using this example you will be able to operate only one lock a time.
 3. Lock `Serial number` and `Device ID` from Tedee app
 	- go to: `Lock details > Settings (gear icon) > Information`
 
-> :warning: This project cannot be run on Xcode simulator, you will have to run it on physical device (iPhone).
+> [!WARNING]  
+> This project cannot be run on Xcode simulator, you will have to run it on physical device (iPhone).
 
 ## Initial configuration
 
@@ -72,7 +67,7 @@ Using this example you will be able to operate only one lock a time.
 
 ![](/assets/images/img1.png)
 
-11. Now you should see you iPhone in top bar, if it's not click and select it from devices list
+11. Now you should see your iPhone in top bar, if it's not, click and select it from devices list
 ![](assets/images/img11.png)
 
 ### Step 3 - Running project
@@ -111,21 +106,24 @@ App will also generate public key that is required to lock certificate (see next
 	6. fill `MobileID` gathered from previous request response and `Device ID` from Tedee app
 	7. store somewhere response result, you will need it in next step
 
-> :warning: Generated certificate has expiration date, which is attached to the response with certificate. After certificate expiration you will not be able to operate the lock and you need to get new one.
+> [!WARNING]  
+> Generated certificate has expiration date, which is attached to the response with certificate. After certificate expiration you will not be able to operate the lock and you need to get new one.
 
 ### Step 4 - fill required configuration
 
 1. open `Configuration.swift` in project navigator
 2. replace empty value of `SerialNumber` with your Tedee lock serial number
-3. replace empty value of `MobilePublicKeyString` with `Public key` you see in Xcode console
-4. replace empty value of `DevicePublicKeyString` with `devicePublicKey` value from last API request results
-5. replace empty value of `CertificateString` with `certificate` value from last API request results
+3. replace empty value of `CertificateString` with `certificate` value from last API request results
+4. replace empty value of `Expiration` with `expirationDate` value from last API request results
+5. replace empty value of `DevicePublicKey` with `devicePublicKey` value from last API request results
+6. replace empty value of `MobilePublicKey` with `mobilePublicKey` value from last API request results
 
-### Step 5 - operate the lock
+### Step 5 - Connect and send commands
 
 1. compile and run app again with `Cmd + R`
-2. if everything is configured properly you should be able to unlock the lock.
-
-
+2. if everything is configured properly you should be able to connect to the lock, send commands to it and see bluetooth notification send by the lock (e.g. when you manually close or open lock)
 
 ![](assets/images/img14.jpg)
+
+> [!IMPORTANT]  
+> if you have issue with connecting to the lock and sdk returns `secureSessionFailed` error, open Tedee app and make sure that Tedee app is able to connect to the the same lock and you are able to lock/unlock your lock. After that, this example app should be able to successfully connect to the lock.

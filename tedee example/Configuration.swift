@@ -8,11 +8,11 @@
 import Foundation
 
 enum Configuration {
-    static let SerialNumber = "20370202-000002"
-    static let Certificate = "AQECAgECAwRl8WQABAF/BQQAAAAABgQAAVF/BwRl7kmACARnz30ACQQAACOqCgQAALuDCwgAAAGODi4jFH5BBA98uLCr66YP9T9RU8HbboFOkw2fg8ePRLgWo8cRu3p25BbL7lgDqjbO2s7VOm+f45lGoYgV0DRlpuTTLDNpc+t/RzBFAiEAgxo9rLd2fAQL5jZvatqKUhDGGE8clCgCD/+Z5DE88SoCIDfRRuv1KhGafLgWoV09JHwGBBZ1DeMwLSKlxlxqAu2r"
-    static let Expiration = "2024-03-13T08:29:52.2133904Z"
-    static let DevicePublicKey = "BObygEK5gBxmGlfVbDkeQJCRxtTg8M7rmGOo2qX0pCTzrXlykYTWh+mrIX7r+XAcBiU9y6sCBPPDGx+qzFdQnro="
-    static let MobilePublicKey = "BA98uLCr66YP9T9RU8HbboFOkw2fg8ePRLgWo8cRu3p25BbL7lgDqjbO2s7VOm+f45lGoYgV0DRlpuTTLDNpc+s="
+    static let SerialNumber = ""
+    static let Certificate = ""
+    static let Expiration = ""
+    static let DevicePublicKey = ""
+    static let MobilePublicKey = ""
 }
 
 extension Configuration {

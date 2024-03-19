@@ -141,6 +141,8 @@ final class ContentViewModel {
                         connectionStatus = .connecting
                     case .disconnected:
                         connectionStatus = .disconnected
+                    @unknown default:
+                        break
                     }
                     let error: String = if let error = status.error {
                         ", \(error)"
@@ -160,6 +162,8 @@ final class ContentViewModel {
                         comunicationList.append(ComunicationListItem("lock state changed: \(lockState.state)"))
                     case .generic(let array):
                         comunicationList.append(ComunicationListItem("notification: \(array)"))
+                    @unknown default:
+                        break
                     }
                 }
             }

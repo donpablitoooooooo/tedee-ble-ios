@@ -3,11 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D3860C8B2B9096D40002086F /* TedeeMobileSDK in Frameworks */ = {isa = PBXBuildFile; productRef = D3860C8A2B9096D40002086F /* TedeeMobileSDK */; };
+		D33508202BAA0F34008FE2CA /* TedeeMobileSDK in Frameworks */ = {isa = PBXBuildFile; productRef = D335081F2BAA0F34008FE2CA /* TedeeMobileSDK */; };
 		D3B3746F2B8F5E1B00EDA7A5 /* tedee_exampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B374682B8F5E1B00EDA7A5 /* tedee_exampleApp.swift */; };
 		D3B374702B8F5E1B00EDA7A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3B374692B8F5E1B00EDA7A5 /* Assets.xcassets */; };
 		D3B374712B8F5E1B00EDA7A5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3B3746B2B8F5E1B00EDA7A5 /* Preview Assets.xcassets */; };
@@ -44,7 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3860C8B2B9096D40002086F /* TedeeMobileSDK in Frameworks */,
+				D33508202BAA0F34008FE2CA /* TedeeMobileSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,7 +106,7 @@
 			);
 			name = "tedee example";
 			packageProductDependencies = (
-				D3860C8A2B9096D40002086F /* TedeeMobileSDK */,
+				D335081F2BAA0F34008FE2CA /* TedeeMobileSDK */,
 			);
 			productName = TedeeLockTestApp;
 			productReference = D313E1CF2B8FB6EB0084DCA2 /* tedee example.app */;
@@ -128,7 +128,7 @@
 				};
 			};
 			buildConfigurationList = D354BB822B861FF5003AF9E3 /* Build configuration list for PBXProject "tedee example" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 15.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -137,7 +137,7 @@
 			);
 			mainGroup = D354BB7E2B861FF5003AF9E3;
 			packageReferences = (
-				D3860C892B9096D30002086F /* XCRemoteSwiftPackageReference "tedee-mobile-sdk-ios" */,
+				D335081E2BAA0F34008FE2CA /* XCRemoteSwiftPackageReference "tedee-mobile-sdk-ios" */,
 			);
 			productRefGroup = D354BB7E2B861FF5003AF9E3;
 			projectDirPath = "";
@@ -302,7 +302,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"tedee example/Preview Content\"";
-				DEVELOPMENT_TEAM = T6977C7Z5Y;
+				DEVELOPMENT_TEAM = 272JBGZJ8C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth is required to make connection to tedee Lock";
@@ -332,7 +332,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"tedee example/Preview Content\"";
-				DEVELOPMENT_TEAM = T6977C7Z5Y;
+				DEVELOPMENT_TEAM = 272JBGZJ8C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth is required to make connection to tedee Lock";
@@ -378,20 +378,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D3860C892B9096D30002086F /* XCRemoteSwiftPackageReference "tedee-mobile-sdk-ios" */ = {
+		D335081E2BAA0F34008FE2CA /* XCRemoteSwiftPackageReference "tedee-mobile-sdk-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/tedee-com/tedee-mobile-sdk-ios";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.2;
+				minimumVersion = 0.0.7;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D3860C8A2B9096D40002086F /* TedeeMobileSDK */ = {
+		D335081F2BAA0F34008FE2CA /* TedeeMobileSDK */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D3860C892B9096D30002086F /* XCRemoteSwiftPackageReference "tedee-mobile-sdk-ios" */;
+			package = D335081E2BAA0F34008FE2CA /* XCRemoteSwiftPackageReference "tedee-mobile-sdk-ios" */;
 			productName = TedeeMobileSDK;
 		};
 /* End XCSwiftPackageProductDependency section */

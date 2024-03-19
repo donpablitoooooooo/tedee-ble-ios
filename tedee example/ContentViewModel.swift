@@ -26,11 +26,12 @@ final class ContentViewModel {
     let serialNumber: TedeeSerialNumber
     let certificate: TedeeCertificate
     
-    var isConnected = false
+    var connectionStatus: ConnectionStatus = .disconnected
     var keepConnection = false
     var comunicationList = [ComunicationListItem]()
     
     init() {
+        print("Public key to register in api: \(TedeeLockManager.publicKey)")
         do {
             serialNumber = try TedeeSerialNumber(serialNumber: Configuration.SerialNumber)
             certificate = try TedeeCertificate(certificate: Configuration.Certificate,
@@ -46,7 +47,7 @@ final class ContentViewModel {
     func connect() async {
         do {
             try await TedeeLockManager.shared.connect(serialNumber, certificate: certificate, keepConnection: keepConnection)
-            isConnected = true
+            connectionStatus = .connected
         } catch {
             comunicationList.append(ComunicationListItem("connection error: \(error)"))
         }
@@ -56,7 +57,7 @@ final class ContentViewModel {
     func disconnect() async {
         do {
             try await TedeeLockManager.shared.disconnect(serialNumber)
-            isConnected = false
+            connectionStatus = .disconnected
         } catch {
             comunicationList.append(ComunicationListItem("disconnection error: \(error)"))
         }
@@ -81,28 +82,89 @@ final class ContentViewModel {
         }
     }
     
-    func configureStreams() {
-        Task { @MainActor in
-            for await serialNumber in TedeeLockManager.shared.onDisconnectionStream {
-                if self.serialNumber.serialNumber == serialNumber.serialNumber {
-                    isConnected = false
-                    comunicationList.removeAll()
-                }
+    @MainActor
+    func getLockStatus() {
+        Task {
+            do {
+                let lockStatus = try await TedeeLockManager.shared.getLockState(serialNumber)
+                comunicationList.append(ComunicationListItem("lock state: \(lockStatus.state)"))
+            } catch {
+                comunicationList.append(ComunicationListItem("error: \(error)"))
             }
         }
-        
+    }
+    
+    @MainActor
+    func openLock() {
+        Task {
+            do {
+                let result = try await TedeeLockManager.shared.openLock(serialNumber)
+                comunicationList.append(ComunicationListItem("open result: \(result)"))
+            } catch {
+                comunicationList.append(ComunicationListItem("error: \(error)"))
+            }
+        }
+    }
+    
+    @MainActor
+    func closeLock() {
+        Task {
+            do {
+                let result = try await TedeeLockManager.shared.closeLock(serialNumber)
+                comunicationList.append(ComunicationListItem("close result: \(result)"))
+            } catch {
+                comunicationList.append(ComunicationListItem("error: \(error)"))
+            }
+        }
+    }
+    
+    @MainActor
+    func pullLock() {
+        Task {
+            do {
+                let result = try await TedeeLockManager.shared.pullLock(serialNumber)
+                comunicationList.append(ComunicationListItem("pull result: \(result)"))
+            } catch {
+                comunicationList.append(ComunicationListItem("error: \(error)"))
+            }
+        }
+    }
+    
+    func configureStreams() {
         Task { @MainActor in
-            for await serialNumber in TedeeLockManager.shared.onConnectionStream {
-                if self.serialNumber.serialNumber == serialNumber.serialNumber {
-                    isConnected = true
+            for await status in TedeeLockManager.shared.connectionStatusStream {
+                if self.serialNumber.serialNumber == status.serialNumber.serialNumber {
+                    switch status.status {
+                    case .connected:
+                        connectionStatus = .connected
+                    case .connecting:
+                        connectionStatus = .connecting
+                    case .disconnected:
+                        connectionStatus = .disconnected
+                    @unknown default:
+                        break
+                    }
+                    let error: String = if let error = status.error {
+                        ", \(error)"
+                    } else {
+                        ""
+                    }
+                    comunicationList.append(ComunicationListItem("connection stream: \(connectionStatus.rawValue)\(error)"))
                 }
             }
         }
         
         Task { @MainActor in
             for await notification in TedeeLockManager.shared.notificationsStream {
-                if self.serialNumber.serialNumber == notification.0.serialNumber {
-                    comunicationList.append(ComunicationListItem("notification: \(notification.1)"))
+                if self.serialNumber.serialNumber == notification.serialNumber.serialNumber {
+                    switch notification.notification {
+                    case .lockState(let lockState):
+                        comunicationList.append(ComunicationListItem("lock state changed: \(lockState.state)"))
+                    case .generic(let array):
+                        comunicationList.append(ComunicationListItem("notification: \(array)"))
+                    @unknown default:
+                        break
+                    }
                 }
             }
         }

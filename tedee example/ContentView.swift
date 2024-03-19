@@ -13,9 +13,25 @@ enum FocusableField: Hashable {
     case parameters
 }
 
+enum ConnectionStatus: String {
+    case connected = "Connected"
+    case connecting = "Connecting"
+    case disconnected = "Disconnected"
+    
+    var color: Color {
+        switch self {
+        case .connected:
+            return .green
+        case .connecting:
+            return .yellow
+        case .disconnected:
+            return .red
+        }
+    }
+}
+
 struct ContentView: View {
     @Bindable var viewModel: ContentViewModel
-    @State var isConnected = false
     @State var command = ""
     @State var parameters = ""
     @FocusState var focus: FocusableField?
@@ -34,13 +50,12 @@ struct ContentView: View {
                 
                 HStack {
                     Spacer()
-                    Text(viewModel.isConnected ? "Connected" : "Disconnected")
-                        .foregroundStyle(viewModel.isConnected ? .green : .red)
+                    Text(viewModel.connectionStatus.rawValue)
+                        .foregroundStyle(viewModel.connectionStatus.color)
                         .font(.title)
                     Spacer()
                 }
             }
-            
             
             Section {
                 Toggle("Keep connection?", isOn: $viewModel.keepConnection)
@@ -63,6 +78,45 @@ struct ContentView: View {
                             .foregroundStyle(.red)
                     }
                     .buttonStyle(.bordered)
+                }
+            }
+            
+            Section {
+                HStack {
+                    Button {
+                        viewModel.pullLock()
+                    } label: {
+                        Text("Pull")
+                    }
+                    .buttonStyle(.bordered)
+                    
+                    Spacer()
+                    
+                    Button {
+                        viewModel.openLock()
+                    } label: {
+                        Text("Open")
+                    }
+                    .buttonStyle(.bordered)
+                    
+                    Spacer()
+                    
+                    Button {
+                        viewModel.closeLock()
+                    } label: {
+                        Text("Close")
+                    }
+                    .buttonStyle(.bordered)
+                }
+                HStack {
+                    Spacer()
+                    Button {
+                        viewModel.getLockStatus()
+                    } label: {
+                        Text("Get lock status")
+                    }
+                    .buttonStyle(.bordered)
+                    Spacer()
                 }
             }
             
@@ -105,7 +159,6 @@ struct ContentView: View {
             }
         }
         .onAppear {
-            print("Public key to register in api:: \(TedeeLockManager.publicKey)")
             viewModel.configureStreams()
         }
     }

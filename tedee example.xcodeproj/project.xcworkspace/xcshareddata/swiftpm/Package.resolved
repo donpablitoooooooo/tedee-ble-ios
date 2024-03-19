@@ -1,23 +1,15 @@
 {
+  "originHash" : "9f371499486063626d29794eec0f660722dac0a2435e6356c4248e5b87e2a8e4",
   "pins" : [
-    {
-      "identity" : "cryptoswift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/krzyzanowskim/CryptoSwift.git",
-      "state" : {
-        "revision" : "7892a123f7e8d0fe62f9f03728b17bbd4f94df5c",
-        "version" : "1.8.1"
-      }
-    },
     {
       "identity" : "tedee-mobile-sdk-ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tedee-com/tedee-mobile-sdk-ios",
       "state" : {
-        "revision" : "5460a11a1ad6877b15ee282c80a0f0894db3477e",
-        "version" : "0.0.3"
+        "revision" : "b4c1b03df99ac60460f336b164d0ca7d2378bddb",
+        "version" : "0.0.7"
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

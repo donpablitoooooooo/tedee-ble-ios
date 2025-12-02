@@ -89,18 +89,18 @@ struct ContentView: View {
                         Text("Pull")
                     }
                     .buttonStyle(.bordered)
-                    
+
                     Spacer()
-                    
+
                     Button {
                         viewModel.openLock()
                     } label: {
                         Text("Open")
                     }
                     .buttonStyle(.bordered)
-                    
+
                     Spacer()
-                    
+
                     Button {
                         viewModel.closeLock()
                     } label: {
@@ -117,6 +117,33 @@ struct ContentView: View {
                     }
                     .buttonStyle(.bordered)
                     Spacer()
+                }
+            }
+
+            Section {
+                VStack {
+                    Text("Persistent Notification")
+                        .font(.headline)
+                    HStack {
+                        Button {
+                            Task {
+                                try? await NotificationManager.shared.showPersistentNotification()
+                            }
+                        } label: {
+                            Text("Show Notification")
+                        }
+                        .buttonStyle(.bordered)
+
+                        Spacer()
+
+                        Button {
+                            NotificationManager.shared.removePersistentNotification()
+                        } label: {
+                            Text("Hide Notification")
+                                .foregroundStyle(.red)
+                        }
+                        .buttonStyle(.bordered)
+                    }
                 }
             }
             

@@ -153,7 +153,7 @@ final class ContentViewModel {
                 }
             }
         }
-        
+
         Task { @MainActor in
             for await notification in TedeeLockManager.shared.notificationsStream {
                 if self.serialNumber.serialNumber == notification.serialNumber.serialNumber {
@@ -167,6 +167,41 @@ final class ContentViewModel {
                     }
                 }
             }
+        }
+    }
+
+    @MainActor
+    func handleNotificationAction(_ actionIdentifier: String) async {
+        comunicationList.append(ComunicationListItem("notification action: \(actionIdentifier)"))
+
+        // Auto-connect if not connected
+        if connectionStatus != .connected {
+            comunicationList.append(ComunicationListItem("auto-connecting to lock..."))
+            await connect()
+
+            // Wait for connection to establish
+            try? await Task.sleep(for: .seconds(2))
+
+            // Check if connected
+            if connectionStatus != .connected {
+                comunicationList.append(ComunicationListItem("failed to auto-connect"))
+                return
+            }
+        }
+
+        // Execute action based on identifier
+        switch actionIdentifier {
+        case NotificationManager.openActionIdentifier:
+            comunicationList.append(ComunicationListItem("executing open from notification"))
+            await openLock()
+        case NotificationManager.closeActionIdentifier:
+            comunicationList.append(ComunicationListItem("executing close from notification"))
+            await closeLock()
+        case NotificationManager.pullSpringActionIdentifier:
+            comunicationList.append(ComunicationListItem("executing pull spring from notification"))
+            await pullLock()
+        default:
+            break
         }
     }
 }

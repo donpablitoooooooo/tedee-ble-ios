@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct tedee_exampleApp: App {
-    @StateObject private var viewModel = ContentViewModel()
+    @State private var viewModel = ContentViewModel()
 
     init() {
         // Initialize notification manager
